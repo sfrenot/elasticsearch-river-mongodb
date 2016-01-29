@@ -149,7 +149,7 @@ class CollectionSlurper extends MongoDBRiverComponent {
                     // possible option: Get the object id list from .fs collection then call GriDFS.findOne
                     GridFS grid = new GridFS(mongoClient.getDB(definition.getMongoDb()), definition.getMongoCollection());
 
-                    cursor = grid.getFileList();
+                    cursor = grid.getFileList(getFilterForInitialImport(definition.getMongoCollectionFilter(), lastId));
                     while (cursor.hasNext()) {
                         DBObject object = cursor.next();
                         if (object instanceof GridFSDBFile) {
